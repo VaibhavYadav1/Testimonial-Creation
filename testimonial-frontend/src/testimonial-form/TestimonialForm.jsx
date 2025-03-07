@@ -10,10 +10,11 @@ function TestimonialForm() {
 
   // Dropdown for users
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState("");
+  const [selectedUser, setSelectedUser] = useState(""); // will store username
 
   const navigate = useNavigate();
   const savedCustomerToken = localStorage.getItem("savedCustomerToken");
+  const savedCustomerName = localStorage.getItem("savedCustomerName");
 
   // Fetch all users for the dropdown
   useEffect(() => {
@@ -23,7 +24,6 @@ function TestimonialForm() {
           "http://localhost:4000/auth/user/getAllUsers",
           {
             headers: {
-              // If required by your API:
               Authorization: `Bearer ${savedCustomerToken}`,
               "Content-Type": "application/json",
             },
@@ -47,15 +47,71 @@ function TestimonialForm() {
       return;
     }
 
+    // Asynchronous function to get user ID from username
+    const getUserId = async () => {
+      if (!selectedUser || !savedCustomerToken) {
+        console.error("Missing user details or token.");
+        return null;
+      }
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/auth/user/findUserByName",
+          { username: selectedUser },
+          {
+            headers: {
+              Authorization: `Bearer ${savedCustomerToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("User ID:", response.data.userId);
+        return response.data.userId;
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        navigate("/");
+        return null;
+      }
+    };
+
+    // Asynchronous function to get customer ID from saved customer name
+    const getCustomerId = async () => {
+      if (!savedCustomerName || !savedCustomerToken) {
+        console.error("Missing customer name or token.");
+        return null;
+      }
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/auth/customer/findCustomerByName",
+          { customerName: savedCustomerName },
+          {
+            headers: {
+              Authorization: `Bearer ${savedCustomerToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("Customer ID:", response.data.customerId);
+        return response.data.customerId;
+      } catch (error) {
+        console.error("Error fetching customer data:", error);
+        navigate("/");
+        return null;
+      }
+    };
+
+    // Await the asynchronous calls
+    const userId = await getUserId();
+    const customerId = await getCustomerId();
     const createdAt = new Date().toISOString();
 
-    // Include selectedUser in your testimonial data (using the userId)
     const testimonialData = {
-      rating,
-      customerAbout,
-      description,
-      createdAt,
-      userId: selectedUser,
+      rating: rating,
+      userId: userId,
+      customerId: customerId,
+      description: description,
+      customerAbout: customerAbout,
+      isVisible: true,
+      createdAt: createdAt,
     };
 
     try {
@@ -69,7 +125,7 @@ function TestimonialForm() {
         }
       );
       console.log("Testimonial created:", response.data);
-      navigate("/login");
+      navigate("/customerLogin");
     } catch (error) {
       console.error("There was an error!", error);
     }
@@ -137,7 +193,8 @@ function TestimonialForm() {
             >
               <option value="">--Select a user--</option>
               {users.map((user) => (
-                <option key={user.userId} value={user.userId}>
+                // Use username as value since our API expects a username for finding user ID
+                <option key={user.userId} value={user.username}>
                   {user.username}
                 </option>
               ))}
@@ -158,8 +215,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     height: "100vh",
-    background:
-      "linear-gradient(to right, rgb(112, 186, 250), rgb(184, 241, 244))",
+    background: "linear-gradient(to right, rgb(112, 186, 250), rgb(184, 241, 244))",
   },
   formContainer: {
     width: "100%",
