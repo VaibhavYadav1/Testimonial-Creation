@@ -14,6 +14,7 @@ function Authenticate() {
         const getToken = async () => {
             
             if (savedUserName == null || savedPassword == null) {
+                alert("invalid details");
                 navigate("/");
             }
             try {
@@ -24,6 +25,7 @@ function Authenticate() {
                 setToken(response.data);
                 console.log(token);
             } catch (error) {
+                alert("invalid details");
                 console.error("Error fetching token:", error);
                 navigate("/");
             }

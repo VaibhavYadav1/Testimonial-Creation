@@ -12,6 +12,7 @@ function AuthenticateCustomer() {
   useEffect(() => {
     const getToken = async () => {
       if (!savedCustomerName || !savedPassword) {
+        alert("invalid details");
         navigate("/");
         return;
       }
@@ -28,6 +29,7 @@ function AuthenticateCustomer() {
           navigate("/customerLogin");
         }
       } catch (error) {
+        alert("invalid details");
         console.error("Error fetching token:", error);
         navigate("/");
       }

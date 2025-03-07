@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import LoginNavigation from "../nav-component/LoginNavigation";
+import "../bodyStyle.css";
 
 const CustomerLoginComponent = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -133,44 +134,46 @@ const CustomerLoginComponent = () => {
   return (
     <>
       <LoginNavigation name={savedCustomerName} />
-      <main style={styles.bodyContainer}>
-        <Link to="/addTestimonial" style={styles.add}>
-          Add Testimonial
-        </Link>
-        <div style={styles.testimonialContainer}>
-          {testimonials.length > 0 ? (
-            testimonials.map((testimonial, index) => (
-              <div key={index} style={styles.testimonialCard}>
-                <img
-                  src={`https://ui-avatars.com/api/?name=${testimonial.customerName}`}
-                  alt={testimonial.customerName}
-                  style={styles.testimonialImage}
-                />
-                <div style={styles.testimonialContent}>
-                  <p style={styles.testimonialText}>
-                    {testimonial.description}
-                  </p>
-                  <div style={styles.testimonialInfo}>
-                    <h4>{testimonial.customerName}</h4>
-                    <span style={styles.testimonialAbout}>
-                      {testimonial.customerAbout}
-                    </span>
-                    <div style={styles.testimonialRating}>
-                      {"★".repeat(testimonial.rating)}
-                      {"☆".repeat(5 - testimonial.rating)}
+      <div className="body-container">
+        <main style={styles.bodyContainer}>
+          <Link to="/addTestimonial" style={styles.add}>
+            Add Testimonial
+          </Link>
+          <div style={styles.testimonialContainer}>
+            {testimonials.length > 0 ? (
+              testimonials.map((testimonial, index) => (
+                <div key={index} style={styles.testimonialCard}>
+                  <img
+                    src={`https://ui-avatars.com/api/?name=${testimonial.customerName}`}
+                    alt={testimonial.customerName}
+                    style={styles.testimonialImage}
+                  />
+                  <div style={styles.testimonialContent}>
+                    <p style={styles.testimonialText}>
+                      {testimonial.description}
+                    </p>
+                    <div style={styles.testimonialInfo}>
+                      <h4>{testimonial.customerName}</h4>
+                      <span style={styles.testimonialAbout}>
+                        {testimonial.customerAbout}
+                      </span>
+                      <div style={styles.testimonialRating}>
+                        {"★".repeat(testimonial.rating)}
+                        {"☆".repeat(5 - testimonial.rating)}
+                      </div>
+                      <span style={styles.testimonialDate}>
+                        {new Date(testimonial.createdAt).toLocaleDateString()}
+                      </span>
                     </div>
-                    <span style={styles.testimonialDate}>
-                      {new Date(testimonial.createdAt).toLocaleDateString()}
-                    </span>
                   </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <p>No testimonials found.</p>
-          )}
-        </div>
-      </main>
+              ))
+            ) : (
+              <p>No testimonials found.</p>
+            )}
+          </div>
+        </main>
+      </div>
     </>
   );
 };

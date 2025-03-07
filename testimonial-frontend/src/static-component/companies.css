@@ -1,71 +1,71 @@
 /* Container styling */
 .companies-container {
-  width: 60%;
-  margin: 40px auto;
-  text-align: center;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    margin: 40px auto;
+    text-align: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Header */
 h2 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 /* Company list styling */
 .companies-list {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
 }
 
 .company-list {
-  list-style: none;
-  padding: 0;
-  width: 40%;
+    list-style: none;
+    padding: 0;
+    width: 40%;
 }
 
 .company-item {
-  background: #fff;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 500;
-  border-radius: 5px;
-  text-align: left;
-  transition: 0.3s, transform 0.2s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    text-align: left;
+    transition: 0.3s, transform 0.2s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .company-item:hover {
-  background: #007bff;
-  color: white;
-  transform: translateX(5px);
+    background: #007BFF;
+    color: white;
+    transform: translateX(5px);
 }
 
 /* Selected company details */
 .company-details-container {
-  width: 50%;
-  padding: 20px;
-  text-align: left;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    padding: 20px;
+    text-align: left;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .company-details-container h3 {
-  margin-top: 0;
-  color: #007bff;
+    margin-top: 0;
+    color: #007BFF;
 }
 
 .company-details-container p {
-  font-size: 16px;
-  color: #555;
-  line-height: 1.5;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
 }
